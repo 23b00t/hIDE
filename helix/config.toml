@@ -1,0 +1,131 @@
+theme = "tokyonight"  # dark_plus works well with hx --tutor.
+
+[editor]
+mouse = false
+end-of-line-diagnostics = "hint"
+line-number = "relative"    # Displays line numbers relative to the current line
+color-modes = true          # Enables different color modes based on the file type
+auto-pairs = true           # Automatically inserts matching pairs
+true-color = true           # Enables true color support
+bufferline = "multiple"     # Displays multiple buffers in the buffer line
+cursorline = true           # Highlights the current line
+rulers = [200]              # Adds a visual ruler at column 200
+auto-completion = true      # Enables auto-completion
+completion-replace = true   # Replaces text with selected completion
+completion-timeout = 3      # Sets the timeout for completions to 3 seconds
+clipboard-provider = "termcode"
+default-yank-register = "+"
+
+[editor.indent-guides]
+character = "╎"             # Character used for indentation guides
+render = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[keys.insert]
+esc = ["collapse_selection", "normal_mode"]
+
+[keys.normal]
+esc = ["collapse_selection", "keep_primary_selection"]
+# 0   = "goto_line_start"
+# "^" = "goto_first_nonwhitespace"
+"L" = ":buffer-next"            # Next buffer (like :bn)
+"H" = ":buffer-previous"        # Previous buffer (like :bp)
+"Q" = ":buffer-close"           # Close buffer (like :bd)
+"X" = ":buffer-close-others"    # Close other buffers (like :bd)
+C-h = "jump_view_left"
+C-l = "jump_view_right"
+C-k = "jump_view_up"
+C-j = "jump_view_down"
+C-q = "wclose"
+# To fix some strange issues which doesn't allow e.g. A-|
+# maybe as this is A-Shift-\ on my keyboard?
+C-p = "shell_pipe_to"
+C-a = "shell_append_output"
+
+[keys.normal.Z]
+"Z" = ":xa" 
+
+[keys.normal.space]
+z = ":toggle gutters.line-numbers.min-width 3 35" 
+
+[keys.normal.space.n]
+h = [":sh zellij action new-pane --stacked -- hx", ":redraw"]
+n = ":sh zellij action new-pane --direction Right"
+
+[keys.select]
+esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
+# 0   = "goto_line_start"
+# "^" = "goto_first_nonwhitespace"
+# p = "replace_selections_with_clipboard"
+
+# LSP Configuration
+[editor.lsp]
+enable = true               # Enables Language Server Protocol support
+snippets = true             # Enables snippet support
+auto-signature-help = true  # Automatically shows signature help
+display-messages = true     # Displays messages from the language server
+
+# File Picker Configuration
+[editor.file-picker]
+hidden = true               # Shows hidden files in the file picker (changed to true to match typical preference)
+
+# Statusline Configuration
+[editor.statusline]
+left = ["mode", "file-modification-indicator", "spinner", "version-control", "file-name"]
+right = ["position", "total-line-numbers", "file-type"]
+
+
+# =========================
+# Agentic Helix keymap v2
+# Prefix: \ a
+# =========================
+
+[keys.normal."\\".a]
+# Chat workspace
+t = [
+  ":sh test -f /tmp/ai-chat.md || printf '## me\n' > /tmp/ai-chat.md",
+  ":vsplit /tmp/ai-chat.md",
+  ":redraw"
+]
+ret = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua chat --chat-file=/tmp/ai-chat.md --helix=pipe_to"
+
+# Context
+f = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua add-file <C-r>% --helix=pipe_to"
+o = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua add-selection-or-file <C-r>% --helix=pipe_to"
+
+# Session
+n = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua new-session --helix=pipe_to"
+r = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua restore-session --helix=pipe_to"
+x = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua stop-generation --helix=pipe_to"
+
+# Backend / model / reasoning
+p = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua switch-provider --provider=copilot --helix=pipe_to"
+m = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua set-mode --mode=default --helix=pipe_to"
+e = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua set-thought-level --thought-level=medium --helix=pipe_to"
+
+# Fast model switch
+"1" = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua set-model --model=gpt-4.1 --helix=pipe_to"
+"2" = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua set-model --model=gpt-5.3-codex --helix=pipe_to"
+"3" = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua set-model --model=gpt-5.4 --helix=pipe_to"
+
+[keys.select."\\".a]
+# Inline transforms
+q = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua inline <C-r>% --helix=pipe<ret>"
+c = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua inline --comment <C-r>% --helix=pipe<ret>"
+d = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua inline --doc-comment <C-r>% --helix=pipe<ret>"
+
+# Context from selection (keep selection text unchanged in buffer)
+a = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua add-selection --helix=keep_pipe<ret>"
+o = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua add-selection-or-file <C-r>% --helix=keep_pipe<ret>"
+
+# Optional: send selection-driven prompt to chat flow
+ret = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua chat --chat-file=/tmp/ai-chat.md --helix=pipe_to<ret>"
+
+# filetree/ yazi
+[keys.normal."\\"]
+e = ":sh $HOME/.config/hIDE/toos/picker.sh -i $ZELLIJ_PANE_ID -p ft"
+y = ":sh $HOME/.config/hIDE/toos/picker.sh -i $ZELLIJ_PANE_ID -p yz"
