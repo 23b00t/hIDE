@@ -13,7 +13,7 @@
 ## Usage
 
 - Clone the repo
-- Run `./init.sh` to install dependencies and set up the environment
+- Run `./init.sh` to install dependencies and set up the environment (just for dev).
 - source $HOME/.hIDE_aliases if .(z)profile doesn't already source it
 - Use init-hIDE to start zellij with the shipped config
 - Use hIDE to open a IDE like zellij tab in the current directory

@@ -45,6 +45,15 @@ C-q = "wclose"
 # maybe as this is A-Shift-\ on my keyboard?
 C-p = "shell_pipe_to"
 C-a = "shell_append_output"
+# Lazygit
+C-y = [
+    ":write-all",
+    ":new",
+    ":insert-output lazygit",
+    ":buffer-close!",
+    ":redraw",
+    ":reload-all"
+]
 
 [keys.normal.Z]
 "Z" = ":xa" 
@@ -127,5 +136,5 @@ ret = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua chat --chat-f
 
 # filetree/ yazi
 [keys.normal."\\"]
-e = ":sh $HOME/.config/hIDE/toos/picker.sh -i $ZELLIJ_PANE_ID -p ft"
-y = ":sh $HOME/.config/hIDE/toos/picker.sh -i $ZELLIJ_PANE_ID -p yz"
+e = ":sh $HOME/.config/hIDE/tools/picker.sh -i $ZELLIJ_PANE_ID -p ft"
+y = ":sh $HOME/.config/hIDE/tools/picker.sh -i $ZELLIJ_PANE_ID -p yz"

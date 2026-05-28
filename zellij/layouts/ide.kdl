@@ -8,7 +8,7 @@ layout {
         pane split_direction="vertical" {
             pane size="15%" close_on_exit=true {
                 command "zsh"
-                args "-c" "FILETREE_DEFAULT_CMD='$HOME/.config/hIDE/toos/picker.sh <filepath>' $HOME/.cargo/bin/ft"
+                args "-c" "FILETREE_DEFAULT_CMD='$HOME/.config/hIDE/tools/picker.sh <filepath>' $HOME/.cargo/bin/ft"
             }
             // pane size="15%" {
             //     command "zsh"
