@@ -6,15 +6,37 @@ if ! [ -x "$HOME/.cargo/bin/ft" ]; then
   cargo install filetree
 fi
 
-# 2. Ensure ~/.config/hIDE exists and symlink script root into it
+# 2. Recursively symlink the entire project (mirror structure) to ~/.config/hIDE, except helix/config.toml, README.md, and init.sh
 SCRIPT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HIDE_CONFIG="$HOME/.config/hIDE"
-mkdir -p "$HIDE_CONFIG"
 
-# Symlink the script root (if not already)
-if [ ! -L "$HIDE_CONFIG/root" ]; then
-  ln -sf "$SCRIPT_ROOT" "$HIDE_CONFIG/root"
+if [ ! -d "$SCRIPT_ROOT" ]; then
+  echo "[hIDE:init] Error: SCRIPT_ROOT not found: $SCRIPT_ROOT" >&2
+  exit 1
 fi
+
+echo "[hIDE:init] Setting up hIDE config in $HIDE_CONFIG..."
+echo "[hIDE:init] Get a coffee while we set things up! ☕"
+
+find "$SCRIPT_ROOT" -mindepth 1 \
+  -path "$SCRIPT_ROOT/.git" -prune -o \
+  -path "$SCRIPT_ROOT/helix/config.toml" -prune -o \
+  -name 'README.md' -prune -o \
+  -name 'init.sh' -prune -o \
+  -print | while read -r path; do
+    rel_path="${path#$SCRIPT_ROOT/}"
+    [ -z "$rel_path" ] && continue
+    [ "$rel_path" = "helix/config.toml" ] && continue
+    [ "$rel_path" = "README.md" ] && continue
+    [ "$rel_path" = "init.sh" ] && continue
+    target="$HIDE_CONFIG/$rel_path"
+    if [ -d "$path" ]; then
+      mkdir -p "$target"
+    elif [ -f "$path" ]; then
+      mkdir -p "$(dirname "$target")"
+      ln -sf "$path" "$target"
+    fi
+  done
 
 # 3. Symlink ./helix/config.toml to helix config dir, ensuring dirs
 HE_DIR="$HOME/.config/helix"
