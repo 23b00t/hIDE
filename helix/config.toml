@@ -26,12 +26,16 @@ normal = "block"
 select = "underline"
 
 [keys.insert]
-esc = ["collapse_selection", "normal_mode"]
+esc = ["normal_mode", ":w"]
 
 [keys.normal]
-esc = ["collapse_selection", "keep_primary_selection"]
-# 0   = "goto_line_start"
-# "^" = "goto_first_nonwhitespace"
+esc = ["collapse_selection", ":w"]
+# Fix issues with my layout
+"A-9" = "rotate_selection_contents_backward"
+"A-0" = "rotate_selection_contents_forward"
+"A-\\" = "shell_pipe_to"
+"A-1" = "shell_append_output"
+
 "L" = ":buffer-next"            # Next buffer (like :bn)
 "H" = ":buffer-previous"        # Previous buffer (like :bp)
 "Q" = ":buffer-close"           # Close buffer (like :bd)
@@ -41,19 +45,10 @@ C-l = "jump_view_right"
 C-k = "jump_view_up"
 C-j = "jump_view_down"
 C-q = "wclose"
-# To fix some strange issues which doesn't allow e.g. A-|
-# maybe as this is A-Shift-\ on my keyboard?
-C-p = "shell_pipe_to"
-C-a = "shell_append_output"
-# Lazygit
-C-y = [
-    ":write-all",
-    ":new",
-    ":insert-output lazygit",
-    ":buffer-close!",
-    ":redraw",
-    ":reload-all"
-]
+
+# Swap lines
+S-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+S-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 
 [keys.normal.Z]
 "Z" = ":xa" 
@@ -66,10 +61,12 @@ h = [":sh zellij action new-pane --stacked -- hx", ":redraw"]
 n = ":sh zellij action new-pane --direction Right"
 
 [keys.select]
-esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
-# 0   = "goto_line_start"
-# "^" = "goto_first_nonwhitespace"
-# p = "replace_selections_with_clipboard"
+esc = ["collapse_selection", "normal_mode", ":w"]
+# Fix issues with my layout
+"A-9" = "rotate_selection_contents_backward"
+"A-0" = "rotate_selection_contents_forward"
+"A-\\" = "shell_pipe_to"
+"A-1" = "shell_append_output"
 
 # LSP Configuration
 [editor.lsp]

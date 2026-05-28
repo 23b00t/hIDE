@@ -171,7 +171,7 @@ keybinds clear-defaults=true {
             }
         }
         bind "Alt t" {
-            Run "$HOME/.config/hIDE/zellij/tree.sh" {
+            Run "zsh" "-c" "$HOME/.config/hIDE/zellij/tree.sh" {
                 close_on_exit true
                 in_place true
             }
