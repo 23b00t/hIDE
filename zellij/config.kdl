@@ -208,6 +208,15 @@ keybinds clear-defaults=true {
                 height "90%"
             }
         }
+        bind "Alt s" {
+            Write 27 1 11;
+            WriteChars "/share /tmp/copilot.md";
+            Write 13;
+            Run "hx" "+999999999" "/tmp/copilot.md" {
+                close_on_exit true
+                in_place true
+            }
+        }
     }
     shared_except "locked" "renametab" "renamepane" {
         bind "Ctrl g" { SwitchToMode "locked"; }
@@ -436,7 +445,7 @@ pane_frames false
  
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
-// scrollback_editor "/usr/bin/vim"
+scrollback_editor "/run/current-system/sw/bin/hx"
  
 // A fixed name to always give the Zellij session.
 // Consider also setting `attach_to_session true,`
