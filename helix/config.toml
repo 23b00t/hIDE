@@ -94,7 +94,7 @@ right = ["position", "total-line-numbers", "file-type"]
 c = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -c <C-r>%<ret>"
 d = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -dc <C-r>%<ret>"
 i = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline <C-r>%<ret>"
-[keys.visual."\\".a]
+[keys.select."\\".a]
 c = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -c <C-r>%<ret>"
 d = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -dc <C-r>%<ret>"
 i = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline <C-r>%<ret>"
@@ -104,7 +104,7 @@ i = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline <C-r>%<ret>"
 e = ":sh $HOME/.config/hIDE/tools/picker.sh -i $ZELLIJ_PANE_ID -p ft"
 y = ":sh $HOME/.config/hIDE/tools/picker.sh -i $ZELLIJ_PANE_ID -p yz"
 
-[keys.select."\\".g]
+[keys.normal."\\".g]
 # project diff workspace in /tmp + filetree browser
 d = ":sh $HOME/.config/hIDE/tools/git-diff.sh workspace $ZELLIJ_PANE_ID \"$PWD\""
 D = "@:sh $HOME/.config/hIDE/tools/git-diff.sh workspace $ZELLIJ_PANE_ID \"$PWD\" "
