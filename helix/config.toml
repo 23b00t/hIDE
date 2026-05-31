@@ -91,52 +91,20 @@ right = ["position", "total-line-numbers", "file-type"]
 # =========================
 
 [keys.normal."\\".a]
-# Chat workspace
-t = [
-  ":sh test -f /tmp/ai-chat.md || printf '## me\n' > /tmp/ai-chat.md",
-  ":vsplit /tmp/ai-chat.md",
-  ":redraw"
-]
-ret = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua chat --chat-file=/tmp/ai-chat.md --helix=pipe_to"
-
-# Context
-f = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua add-file <C-r>% --helix=pipe_to"
-o = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua add-selection-or-file <C-r>% --helix=pipe_to"
-
-# Session
-n = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua new-session --helix=pipe_to"
-r = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua restore-session --helix=pipe_to"
-x = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua stop-generation --helix=pipe_to"
-
-# Backend / model / reasoning
-p = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua switch-provider --provider=copilot --helix=pipe_to"
-m = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua set-mode --mode=default --helix=pipe_to"
-e = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua set-thought-level --thought-level=medium --helix=pipe_to"
-
-# Fast model switch
-"1" = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua set-model --model=gpt-4.1 --helix=pipe_to"
-"2" = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua set-model --model=gpt-5.3-codex --helix=pipe_to"
-"3" = ":sh lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua set-model --model=gpt-5.4 --helix=pipe_to"
-
-[keys.select."\\".a]
-# Inline transforms
-q = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua inline <C-r>% --helix=pipe<ret>"
-c = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua inline --comment <C-r>% --helix=pipe<ret>"
-d = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua inline --doc-comment <C-r>% --helix=pipe<ret>"
-
-# Context from selection (keep selection text unchanged in buffer)
-a = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua add-selection --helix=keep_pipe<ret>"
-o = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua add-selection-or-file <C-r>% --helix=keep_pipe<ret>"
-
-# Optional: send selection-driven prompt to chat flow
-ret = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua chat --chat-file=/tmp/ai-chat.md --helix=pipe_to<ret>"
+c = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -c <C-r>%<ret>"
+d = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -dc <C-r>%<ret>"
+i = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline <C-r>%<ret>"
+[keys.visual."\\".a]
+c = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -c <C-r>%<ret>"
+d = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -dc <C-r>%<ret>"
+i = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline <C-r>%<ret>"
 
 # filetree/ yazi
 [keys.normal."\\".f]
 e = ":sh $HOME/.config/hIDE/tools/picker.sh -i $ZELLIJ_PANE_ID -p ft"
 y = ":sh $HOME/.config/hIDE/tools/picker.sh -i $ZELLIJ_PANE_ID -p yz"
 
-[keys.normal."\\".g]
+[keys.select."\\".g]
 # project diff workspace in /tmp + filetree browser
 d = ":sh $HOME/.config/hIDE/tools/git-diff.sh workspace $ZELLIJ_PANE_ID \"$PWD\""
 D = "@:sh $HOME/.config/hIDE/tools/git-diff.sh workspace $ZELLIJ_PANE_ID \"$PWD\" "
@@ -149,3 +117,4 @@ l = [
     ":redraw",
     ":reload-all"
 ]
+b = ":sh git blame -L %{cursor_line},+1 %{buffer_name}"
