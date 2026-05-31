@@ -137,6 +137,9 @@ e = ":sh $HOME/.config/hIDE/tools/picker.sh -i $ZELLIJ_PANE_ID -p ft"
 y = ":sh $HOME/.config/hIDE/tools/picker.sh -i $ZELLIJ_PANE_ID -p yz"
 
 [keys.normal."\\".g]
+# project diff workspace in /tmp + filetree browser
+d = ":sh $HOME/.config/hIDE/tools/git-diff.sh workspace $ZELLIJ_PANE_ID \"$PWD\""
+D = "@:sh $HOME/.config/hIDE/tools/git-diff.sh workspace $ZELLIJ_PANE_ID \"$PWD\" "
 # lazygit
 l = [
     ":write-all",

@@ -43,6 +43,7 @@ HE_DIR="$HOME/.config/helix"
 mkdir -p "$HE_DIR"
 if [ -f "$SCRIPT_ROOT/helix/config.toml" ]; then
   ln -sf "$SCRIPT_ROOT/helix/config.toml" "$HE_DIR/config.toml"
+  ln -sf "$SCRIPT_ROOT/helix/languages.toml" "$HE_DIR/languages.toml"
 fi
 
 # 4. Setup permanent aliases for all shells via ~/.hIDE_aliases

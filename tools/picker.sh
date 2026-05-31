@@ -3,6 +3,7 @@ set -euo pipefail
 
 script_path="$(realpath "$0")"
 pane_id="${PICKER_PANE_ID:-}"
+cwd="${PICKER_CWD:-}"
 picker=""
 files=()
 
@@ -24,6 +25,14 @@ while [[ $# -gt 0 ]]; do
       picker="$2"
       shift 2
       ;;
+    -d|--cwd)
+      [[ $# -ge 2 ]] || {
+        echo "Missing value for $1" >&2
+        exit 1
+      }
+      cwd="$2"
+      shift 2
+      ;;
     --)
       shift
       files+=("$@")
@@ -43,16 +52,30 @@ done
 if [[ -n "$picker" ]]; then
   case "$picker" in
     yz)
-      zellij action new-pane -f --close-on-exit --width 90% --height 90% --blocking -- env \
-        PICKER_PANE_ID="$pane_id" \
-        EDITOR="$script_path" \
-        yazi && zellij action hide-floating-panes >/dev/null 2>&1
+      if [[ -n "$cwd" ]]; then
+        zellij action new-pane -f --close-on-exit --width 90% --height 90% --blocking -- bash -lc '
+          cd "$1"
+          exec env PICKER_PANE_ID="$2" PICKER_CWD="$1" EDITOR="$3" yazi
+        ' bash "$cwd" "$pane_id" "$script_path" && zellij action hide-floating-panes >/dev/null 2>&1
+      else
+        zellij action new-pane -f --close-on-exit --width 90% --height 90% --blocking -- env \
+          PICKER_PANE_ID="$pane_id" \
+          EDITOR="$script_path" \
+          yazi && zellij action hide-floating-panes >/dev/null 2>&1
+      fi
       ;;
     ft)
-      exec zellij action new-pane -f -x 0 -y 0 --width 15% --height 100% --close-on-exit -- env \
-        PICKER_PANE_ID="$pane_id" \
-        FILETREE_DEFAULT_CMD="$script_path <filepath>" \
-        $HOME/.cargo/bin/ft
+      if [[ -n "$cwd" ]]; then
+        exec zellij action new-pane -f -x 0 -y 0 --width 15% --height 100% --close-on-exit -- bash -lc '
+          cd "$1"
+          exec env PICKER_PANE_ID="$2" PICKER_CWD="$1" FILETREE_DEFAULT_CMD="$3 <filepath>" "$HOME/.cargo/bin/ft"
+        ' bash "$cwd" "$pane_id" "$script_path"
+      else
+        exec zellij action new-pane -f -x 0 -y 0 --width 15% --height 100% --close-on-exit -- env \
+          PICKER_PANE_ID="$pane_id" \
+          FILETREE_DEFAULT_CMD="$script_path <filepath>" \
+          $HOME/.cargo/bin/ft
+      fi
       ;;
     *)
       echo "Unknown picker: $picker" >&2
@@ -71,6 +94,10 @@ fi
 # Called by yazi/ft as: $EDITOR <file1> <file2> ...
 for file in "${files[@]}"; do
   [ -n "$file" ] || continue
+
+  if [[ -n "$cwd" && "$file" != /* ]]; then
+    file="$cwd/$file"
+  fi
 
   esc="$file"
   esc="${esc//\\/\\\\}"      # Escape backslashes
