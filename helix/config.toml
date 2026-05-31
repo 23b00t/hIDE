@@ -26,6 +26,7 @@ normal = "block"
 select = "underline"
 
 [keys.insert]
+C-s = ":insert-output ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -s %{cursor_line} %{cursor_column} %{buffer_name}"
 esc = ["normal_mode", ":w"]
 
 [keys.normal]
@@ -77,27 +78,24 @@ display-messages = true     # Displays messages from the language server
 
 # File Picker Configuration
 [editor.file-picker]
-hidden = true               # Shows hidden files in the file picker (changed to true to match typical preference)
+hidden = false
 
 # Statusline Configuration
 [editor.statusline]
-left = ["mode", "file-modification-indicator", "spinner", "version-control", "file-name"]
-right = ["position", "total-line-numbers", "file-type"]
+left = ["mode", "file-modification-indicator", "spinner", "file-name"]
+center = ["version-control"]
+right = ["position", "position-percentage", "total-line-numbers", "file-type"]
 
-
-# =========================
-# Agentic Helix keymap v2
-# Prefix: \ a
-# =========================
-
+# AI
 [keys.normal."\\".a]
-c = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -c <C-r>%<ret>"
-d = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -dc <C-r>%<ret>"
-i = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline <C-r>%<ret>"
+c = "@|ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -c <C-r>%<ret>"
+d = "@|ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -dc <C-r>%<ret>"
+i = "@|ruby $HOME/.config/hIDE/ai-connect/connect.rb inline <C-r>%<ret>"
 [keys.select."\\".a]
-c = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -c <C-r>%<ret>"
-d = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -dc <C-r>%<ret>"
-i = "@| ruby $HOME/.config/hIDE/ai-connect/connect.rb inline <C-r>%<ret>"
+c = "@|ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -c <C-r>%<ret>"
+d = "@|ruby $HOME/.config/hIDE/ai-connect/connect.rb inline -dc <C-r>%<ret>"
+i = "@|ruby $HOME/.config/hIDE/ai-connect/connect.rb inline <C-r>%<ret>"
+
 
 # filetree/ yazi
 [keys.normal."\\".f]
