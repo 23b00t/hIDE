@@ -192,6 +192,7 @@ keybinds clear-defaults=true {
         bind "Ctrl down" { Resize "Decrease down"; }
         bind "Ctrl up" { Resize "Decrease up"; }
         bind "Ctrl right" { Resize "Decrease right"; }
+        bind "Alt m" { Run "ec"; }
         bind "Alt r" {
             Run "scooter" {
                 floating true
@@ -200,14 +201,14 @@ keybinds clear-defaults=true {
                 height "90%"
             }
         }
-        bind "Alt y" {
-            Run "zsh" "-c" "EDITOR=$HOME/.config/hIDE/toos/picker.sh yazi" {
-                floating true
-                close_on_exit true
-                width "90%"
-                height "90%"
-            }
-        }
+        // bind "Alt y" {
+        //     Run "zsh" "-c" "EDITOR=$HOME/.config/hIDE/toos/picker.sh yazi" {
+        //         floating true
+        //         close_on_exit true
+        //         width "90%"
+        //         height "90%"
+        //     }
+        // }
         bind "Alt s" {
             Write 27 1 11;
             WriteChars "/share /tmp/copilot.md";

@@ -50,16 +50,6 @@ C-q = "wclose"
 S-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 S-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 
-# lazygit
-C-y = [
-    ":write-all",
-    ":new",
-    ":insert-output lazygit",
-    ":buffer-close!",
-    ":redraw",
-    ":reload-all"
-]
-
 [keys.normal.Z]
 "Z" = ":xa" 
 
@@ -142,6 +132,17 @@ o = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua add-selection-o
 ret = "@|lua $HOME/.config/hIDE/agentic.helix/helix/entrypoint.lua chat --chat-file=/tmp/ai-chat.md --helix=pipe_to<ret>"
 
 # filetree/ yazi
-[keys.normal."\\"]
+[keys.normal."\\".f]
 e = ":sh $HOME/.config/hIDE/tools/picker.sh -i $ZELLIJ_PANE_ID -p ft"
 y = ":sh $HOME/.config/hIDE/tools/picker.sh -i $ZELLIJ_PANE_ID -p yz"
+
+[keys.normal."\\".g]
+# lazygit
+l = [
+    ":write-all",
+    ":new",
+    ":insert-output lazygit",
+    ":buffer-close!",
+    ":redraw",
+    ":reload-all"
+]
