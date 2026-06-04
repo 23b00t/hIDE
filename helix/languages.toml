@@ -1,3 +1,7 @@
 [[language]]
 name = "markdown"
 soft-wrap.enable = true
+
+[[language]]
+name = "rust"
+auto-format = false

@@ -69,6 +69,11 @@ esc = ["collapse_selection", "normal_mode", ":w"]
 "A-\\" = "shell_pipe_to"
 "A-1" = "shell_append_output"
 
+C-h = "jump_view_left"
+C-l = "jump_view_right"
+C-k = "jump_view_up"
+C-j = "jump_view_down"
+
 # LSP Configuration
 [editor.lsp]
 enable = true               # Enables Language Server Protocol support

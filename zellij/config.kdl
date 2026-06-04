@@ -161,21 +161,6 @@ keybinds clear-defaults=true {
             }
         }
         bind "Ctrl Alt f" { ToggleFloatingPanes; }
-        bind "Alt f" { ToggleFocusFullscreen; }
-        bind "Alt g" {
-            Run "lazygit" {
-                floating true
-                close_on_exit true
-                width "90%"
-                height "90%"
-            }
-        }
-        bind "Alt t" {
-            Run "zsh" "-c" "$HOME/.config/hIDE/zellij/tree.sh" {
-                close_on_exit true
-                in_place true
-            }
-        }
         bind "Ctrl Alt h" { MoveFocusOrTab "left"; }
         bind "Ctrl Alt i" { MoveTab "left"; }
         bind "Ctrl Alt j" { MoveFocus "down"; }
@@ -192,8 +177,45 @@ keybinds clear-defaults=true {
         bind "Ctrl down" { Resize "Decrease down"; }
         bind "Ctrl up" { Resize "Decrease up"; }
         bind "Ctrl right" { Resize "Decrease right"; }
-        bind "Alt m" { Run "ec"; }
-        bind "Alt r" {
+
+        bind "Ctrl j" {
+            MessagePlugin "file:/home/user/code/iKeys/target/wasm32-wasip1/debug/iKeys.wasm" {
+                payload "j"
+            }
+        }
+        bind "Ctrl k" {
+            MessagePlugin "file:/home/user/code/iKeys/target/wasm32-wasip1/debug/iKeys.wasm" {
+                payload "k"
+            }
+        }
+        bind "Ctrl h" {
+            MessagePlugin "file:/home/user/code/iKeys/target/wasm32-wasip1/debug/iKeys.wasm" {
+                payload "h"
+            }
+        }
+        bind "Ctrl l" {
+            MessagePlugin "file:/home/user/code/iKeys/target/wasm32-wasip1/debug/iKeys.wasm" {
+                payload "l"
+            }
+        }
+
+        bind "Alt f" { ToggleFocusFullscreen; }
+        bind "Alt Ctrl g" {
+            Run "lazygit" {
+                floating true
+                close_on_exit true
+                width "90%"
+                height "90%"
+            }
+        }
+        bind "Alt t" {
+            Run "zsh" "-c" "$HOME/.config/hIDE/zellij/tree.sh" {
+                close_on_exit true
+                in_place true
+            }
+        }
+        bind "Alt Ctrl m" { Run "ec"; }
+        bind "Alt Ctrl r" {
             Run "scooter" {
                 floating true
                 close_on_exit true
@@ -209,7 +231,7 @@ keybinds clear-defaults=true {
         //         height "90%"
         //     }
         // }
-        bind "Alt s" {
+        bind "Alt Ctrl s" {
             Write 27 1 11;
             WriteChars "/share /tmp/copilot.md";
             Write 13;
