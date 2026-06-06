@@ -161,11 +161,11 @@ keybinds clear-defaults=true {
             }
         }
         bind "Ctrl Alt f" { ToggleFloatingPanes; }
-        bind "Ctrl Alt h" { MoveFocusOrTab "left"; }
+        bind "Ctrl Alt h" { GoToPreviousTab; }
         bind "Ctrl Alt i" { MoveTab "left"; }
         bind "Ctrl Alt j" { MoveFocus "down"; }
         bind "Ctrl Alt k" { MoveFocus "up"; }
-        bind "Ctrl Alt l" { MoveFocusOrTab "right"; }
+        bind "Ctrl Alt l" { GoToNextTab; }
         bind "Ctrl Alt n" { NewPane; }
         bind "Ctrl Alt o" { MoveTab "right"; }
 
@@ -335,6 +335,7 @@ plugins {
 // eg. "https://example.com/my-plugin.wasm"
 load_plugins {
     // zjstatus-hints
+    "file:/home/user/code/iKeys/target/wasm32-wasip1/debug/iKeys.wasm"
 }
 web_client {
     font "monospace"
